@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<testsuite name="Firefox 47.0.0 (Ubuntu 0.0.0)" package="" timestamp="2016-10-10T21:48:18" id="0" hostname="kompeder" tests="2" errors="0" failures="0" time="0.025">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0"/>
+  </properties>
+  <testcase name="Controller: ListCtrl should have items available on load" time="0.018" classname="Firefox_47_0_0_(Ubuntu_0_0_0).Controller: ListCtrl"/>
+  <testcase name="Controller: ListCtrl should have highlight items based on state" time="0.007" classname="Firefox_47_0_0_(Ubuntu_0_0_0).Controller: ListCtrl"/>
+  <system-out>
+    <![CDATA[Firefox 47.0.0 (Ubuntu 0.0.0) LOG: 'WARNING: Tried to load angular more than once.'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
