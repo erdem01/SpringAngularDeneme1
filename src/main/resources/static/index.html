@@ -11,10 +11,11 @@
 	<input type="text" ng-model="ctrl.variable"/>
 	You typed {{ctrl.variable}}
 	
-	<form ng-submit="ctrl.submit()">
-		<input type="text" ng-model="ctrl.user.name" />
-		<input type="text" ng-model="ctrl.user.surname" />
-		<input type="submit" value="Submit" />
+	<form ng-submit="ctrl.submit()" name="userForm">
+		<input type="text" ng-model="ctrl.user.name" ng-minlength="3"/>
+		<input type="text" ng-model="ctrl.user.surname" required/>
+		<input type="date" ng-model="ctrl.user.birthday" />
+		<input type="submit" value="Submit" ng-disabled="userForm.$invalid || userForm.$pristine" />
 	</form>
 
 </body>
