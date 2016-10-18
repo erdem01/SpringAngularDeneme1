@@ -1,18 +1,25 @@
 (function() {
 	var module = angular.module('NgModelModule', []);
-	module.controller('NgModelCtrl', ['$log', 'MyService', function($log, MyService) {
+	module.controller('NgModelCtrl', ['$log', '$http', 'MyService', function($log, $http, MyService) {
 		var self = this;
-		this.variable = '12';
-		this.submit = function() {
+		self.variable = '12';
+		self.submit = function() {
 			$log.log("submitted name " + self.user.name + " surname " + self.user.surname);
 		}
-		this.list = MyService.list();
-		this.addItem = function() {
+		self.list = MyService.list();
+		self.addItem = function() {
 			var newItem = {
 				id: 3, label: 'Item 3'
 			};
 			MyService.add(newItem);
 		};
+		self.user = {};
+		$http.get("/user").then(function(response) {
+			self.user = response.data;
+			self.user.birthday = new Date(self.user.birthday); 
+		}, function(errResponse) {
+			$log.log('Error while fetching users');
+		});
 	}]);
 	module.factory('MyService', function() {
 		var items = [

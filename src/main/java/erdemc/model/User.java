@@ -1,10 +1,14 @@
 package erdemc.model;
 
+import java.util.Date;
+
 public class User {
 
 	private String name;
 	
 	private String surname;
+	
+	private Date birthday;
 
 	public String getName() {
 		return name;
@@ -20,6 +24,14 @@ public class User {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 	
 }
