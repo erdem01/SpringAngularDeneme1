@@ -3,9 +3,6 @@
 	module.controller('NgModelCtrl', ['$log', '$http', 'MyService', function($log, $http, MyService) {
 		var self = this;
 		self.variable = '12';
-		self.submit = function() {
-			$log.log("submitted name " + self.user.name + " surname " + self.user.surname);
-		}
 		self.list = MyService.list();
 		self.addItem = function() {
 			var newItem = {
@@ -20,6 +17,10 @@
 		}, function(errResponse) {
 			$log.log('Error while fetching users');
 		});
+		self.submit = function() {
+			$http.post("/user", self.user).then(function(response) {
+			});
+		}
 	}]);
 	module.factory('MyService', function() {
 		var items = [
