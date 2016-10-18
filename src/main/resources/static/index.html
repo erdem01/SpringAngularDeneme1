@@ -28,6 +28,18 @@ background-color: lightpink;
 		<input type="date" class="birthday" ng-model="ctrl.user.birthday" />
 		<input type="submit" value="Submit" ng-disabled="userForm.$invalid || userForm.$pristine" />
 	</form>
+	
+	<div>
+		<ul>
+			<li ng-repeat="item in ctrl.list">
+				<span ng-bind="item.label"></span>
+			</li>
+		</ul>
+		
+		<button ng-click="ctrl.addItem()">
+			Add More Items
+		</button>
+	</div>
 
 </body>
 </html>
