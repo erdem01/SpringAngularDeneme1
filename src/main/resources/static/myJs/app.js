@@ -10,11 +10,13 @@
 			};
 			MyService.add(newItem);
 		};
-		self.userPromise = UserService.gatherUser();
 		self.user = {};
+		self.userPromise = UserService.gatherUser();
 		self.userPromise.then(function(response) {
-			self.user = response.data;
+			self.user = response;
 			self.user.birthday = new Date(self.user.birthday);
+		}, function(errorMessage) {
+			alert(errorMessage);
 		});
 		self.submit = function() {
 			UserService.sendUser(self.user);
@@ -36,7 +38,13 @@
 	});
 	module.factory('UserService', ['$log', '$http', '$q', function($log, $http, $q) {
 		var gatherUser = function() {
-			return $http.get("/user");
+			var deferred = $q.defer();
+			$http.get("/user").success(function(response) {
+				 deferred.resolve(response);
+			}).error(function(data, status, headers, config) {
+				deferred.reject("Error: request returned status " + status);
+			});
+			return deferred.promise;
 		};
 		var sendUser = function() {
 			$http.post("/user", user);
