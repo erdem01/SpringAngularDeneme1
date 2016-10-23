@@ -1,6 +1,6 @@
 (function() {
 	var module = angular.module('NgModelModule', []);
-	module.controller('NgModelCtrl', ['$log', '$http', 'MyService', function($log, $http, MyService) {
+	module.controller('NgModelCtrl', ['UserService', 'MyService', function(UserService, MyService) {
 		var self = this;
 		self.variable = '12';
 		self.list = MyService.list();
@@ -10,16 +10,14 @@
 			};
 			MyService.add(newItem);
 		};
+		self.userPromise = UserService.gatherUser();
 		self.user = {};
-		$http.get("/user").then(function(response) {
+		self.userPromise.then(function(response) {
 			self.user = response.data;
-			self.user.birthday = new Date(self.user.birthday); 
-		}, function(errResponse) {
-			$log.log('Error while fetching users');
+			self.user.birthday = new Date(self.user.birthday);
 		});
 		self.submit = function() {
-			$http.post("/user", self.user).then(function(response) {
-			});
+			UserService.sendUser(self.user);
 		}
 	}]);
 	module.factory('MyService', function() {
@@ -36,4 +34,16 @@
 			}
 		};
 	});
+	module.factory('UserService', ['$log', '$http', '$q', function($log, $http, $q) {
+		var gatherUser = function() {
+			return $http.get("/user");
+		};
+		var sendUser = function() {
+			$http.post("/user", user);
+		};
+		return {
+			gatherUser: gatherUser,
+			sendUser: sendUser
+		};
+	}])
 })();
