@@ -1,9 +1,9 @@
 (function() {
 	var module = angular.module('NgModelModule', []);
-	module.controller('NgModelCtrl', ['UserService', 'MyService', function(UserService, MyService) {
+	module.controller('NgModelCtrl', ['UserService', 'MyService', 'descIdFilter', function(UserService, MyService, descIdFilter) {
 		var self = this;
 		self.variable = '12';
-		self.list = MyService.list();
+		self.list = descIdFilter(MyService.list());
 		self.addItem = function() {
 			var newItem = {
 				id: 3, label: 'Item 3'
@@ -25,6 +25,7 @@
 	module.factory('MyService', function() {
 		var items = [
 			{id: 1, label: 'Item 0'},
+			{id: 7, label: 'Item 7'},
 			{id: 2, label: 'Item 1'}
 		];
 		return {
@@ -53,5 +54,10 @@
 			gatherUser: gatherUser,
 			sendUser: sendUser
 		};
-	}])
+	}]);
+	module.filter('descId', ['orderByFilter', function(orderByFilter) {
+		return function(list) {
+			return orderByFilter(list, '-id');
+		};
+	}]);
 })();
