@@ -1,5 +1,12 @@
 (function() {
-	var module = angular.module('NgModelModule', []);
+	var module = angular.module('NgModelModule', ['ngRoute']);
+	module.config(['$routeProvider', function($routeProvider) {
+		$routeProvider.when('/', {
+			template: '<h5>This is first route!</h5>'
+		}).when('/second', {
+			template: '<h5>This is second route!</h5>'
+		}).otherwise({redirectTo: '/'});
+	}]);
 	module.controller('NgModelCtrl', ['UserService', 'MyService', 'descIdFilter', function(UserService, MyService, descIdFilter) {
 		var self = this;
 		self.variable = '12';

@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="webjars/angularjs/1.5.8/angular.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular-route.min.js"></script>
 <script type="text/javascript" src="myJs/app.js"></script>
 <style>
 .name.ng-invalid-minlength {
@@ -41,6 +42,14 @@ background-color: lightpink;
 			Add More Items
 		</button>
 	</div>
+	
+	<ul>
+		<li><a href="#/">Default Route</a></li>
+		<li><a href="#/second">Second Route</a></li>
+		<li><a href="#/asdasdasd">Nonexistent Route</a></li>
+	</ul>
+	
+	<div ng-view></div>
 
 </body>
 </html>
