@@ -2,19 +2,23 @@
 	var module = angular.module('NgModelModule', ['ngRoute']);
 	module.value('Constant', {MAGIC_VALUE: 42});
 	module.config(['$routeProvider', function($routeProvider) {
-		$routeProvider.when('/', {
+		$routeProvider.when('/user/:uid', {
 			templateUrl: 'template1.html',
 			resolve: {
 				immedieate: ['Constant', function(Constant) {
 					return Constant.MAGIC_VALUE * 2;
 				}],
 				async: ['$http', function($http) {
-					return $http.get('/user');
+					return $http.get('/user/12');
 				}]
 			},
-			controller: ['$log', 'immedieate', 'async', function($log, immedieate, async) {
+			controller: ['$routeParams', '$log', 'immedieate', 'async', function($routeParams, $log, immedieate, async) {
 				$log.log('Immedieate is : ', immedieate);
 				$log.log('async is : ', async);
+				this.id = $routeParams.uid;
+				this.qStr = $routeParams.q;
+				$log.log('wanted user id is: ', this.id);
+				$log.log('q string is from url is : ', this.qStr, ' (Ex: q=123).');
 			}]
 		}).when('/second', {
 			templateUrl: 'template2.html'
@@ -60,7 +64,7 @@
 	module.factory('UserService', ['$log', '$http', '$q', function($log, $http, $q) {
 		var gatherUser = function() {
 			var deferred = $q.defer();
-			$http.get("/user").success(function(response) {
+			$http.get("/user/1").success(function(response) {
 				 deferred.resolve(response);
 			}).error(function(data, status, headers, config) {
 				deferred.reject("Error: request returned status " + status);
@@ -68,7 +72,7 @@
 			return deferred.promise;
 		};
 		var sendUser = function() {
-			$http.post("/user", user);
+			$http.post("/saveUser", user);
 		};
 		return {
 			gatherUser: gatherUser,
