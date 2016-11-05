@@ -46,6 +46,14 @@
 			UserService.sendUser(self.user);
 		}
 		self.itemTemplate = 'item.html';
+		var currentTab='tab1';
+		self.setCurrentTab = function(newTab) {
+			currentTab = newTab;
+		};
+		self.getCurrentTab = function() {
+			return currentTab;
+		}
+		
 	}]);
 	module.factory('MyService', function() {
 		var items = [

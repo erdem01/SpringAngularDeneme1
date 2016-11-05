@@ -49,6 +49,26 @@ background-color: lightpink;
 	</ul>
 	
 	<div ng-view></div>
+	
+	<button ng-click="ctrl.setCurrentTab('tab1')">tab1</button>
+	<button ng-click="ctrl.setCurrentTab('tab2')">tab2</button>
+	<button ng-click="ctrl.setCurrentTab('tab3')">tab3</button>
+	<button ng-click="ctrl.setCurrentTab('invalidTab')">invalidTab</button>
+	
+	<div ng-switch="ctrl.getCurrentTab()">
+		<div ng-switch-when="tab1">
+			tab1 selected
+		</div>
+		<div ng-switch-when="tab2">
+			tab2 selected
+		</div>
+		<div ng-switch-when="tab3">
+			tab3 selected
+		</div>
+		<div ng-switch-default>
+			unknown
+		</div>
+	</div>
 
 </body>
 </html>
