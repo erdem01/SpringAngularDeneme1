@@ -33,8 +33,7 @@ background-color: lightpink;
 	<div>
 		<ul>
 			<li ng-repeat="item in ctrl.list">
-				<span ng-bind="item.id | currency"></span>
-				<span ng-bind="item.label | uppercase"></span>
+				<div ng-include='ctrl.itemTemplate'></div>
 			</li>
 		</ul>
 		

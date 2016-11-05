@@ -45,6 +45,7 @@
 		self.submit = function() {
 			UserService.sendUser(self.user);
 		}
+		self.itemTemplate = 'item.html';
 	}]);
 	module.factory('MyService', function() {
 		var items = [
