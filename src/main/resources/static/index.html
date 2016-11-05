@@ -32,8 +32,8 @@ background-color: lightpink;
 	
 	<div>
 		<ul>
-			<li ng-repeat="item in ctrl.list">
-				<item-row></item-row>
+			<li ng-repeat="currentItem in ctrl.list">
+				<item-row item="currentItem" message="item {{$index}}. {{currentItem.label}}" select-action="ctrl.onItemSelect(id)"></item-row>
 			</li>
 		</ul>
 		
@@ -41,14 +41,6 @@ background-color: lightpink;
 			Add More Items
 		</button>
 	</div>
-	
-	<ul>
-		<li><a href="#/">Default Route</a></li>
-		<li><a href="#/second">Second Route</a></li>
-		<li><a href="#/asdasdasd">Nonexistent Route</a></li>
-	</ul>
-	
-	<div ng-view></div>
 	
 	<button ng-click="ctrl.setCurrentTab('tab1')">tab1</button>
 	<button ng-click="ctrl.setCurrentTab('tab2')">tab2</button>
@@ -69,6 +61,14 @@ background-color: lightpink;
 			unknown
 		</div>
 	</div>
+	
+	<ul>
+		<li><a href="#/">Default Route</a></li>
+		<li><a href="#/second">Second Route</a></li>
+		<li><a href="#/asdasdasd">Nonexistent Route</a></li>
+	</ul>
+	
+	<div ng-view></div>
 
 </body>
 </html>

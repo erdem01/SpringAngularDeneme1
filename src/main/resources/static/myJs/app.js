@@ -52,7 +52,10 @@
 		};
 		self.getCurrentTab = function() {
 			return currentTab;
-		}
+		};
+		self.onItemSelect = function(id) {
+			console.log('item with id: ', id, '  selected');
+		};
 		
 	}]);
 	module.factory('MyService', function() {
@@ -101,6 +104,16 @@
 				$scope.getChangeRate = function(item) {
 					return Math.ceil(100*(item.price-item.previous)/item.previous);
 				};
+				$scope.onSelect = function() {
+					$scope.selectAction({
+						id: $scope.item.id
+					});
+				};
+			},
+			scope: {
+				item: '=',
+				message: '@',
+				selectAction: '&'
 			}
 		};
 	}]);
