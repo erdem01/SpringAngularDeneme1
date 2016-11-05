@@ -108,7 +108,8 @@
 				};
 				$scope.onSelect = function() {
 					$scope.selectAction({
-						id: $scope.item.id
+						id: $scope.item.id,
+						label: $scope.item.label
 					});
 				};
 			},
