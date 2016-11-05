@@ -95,6 +95,7 @@
 	}]);
 	module.directive('itemRow', [function() {
 		return {
+			restrict: 'E',
 			templateUrl: 'item.html'
 		};
 	}]);
