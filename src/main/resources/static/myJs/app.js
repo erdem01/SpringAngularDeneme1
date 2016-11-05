@@ -20,6 +20,8 @@
 				$log.log('wanted user id is: ', this.id);
 				$log.log('q string is from url is : ', this.qStr, ' (Ex: q=123).');
 			}]
+		}).when('/', {
+			templateUrl: 'template1.html',
 		}).when('/second', {
 			templateUrl: 'template2.html'
 		}).otherwise({redirectTo: '/'});
