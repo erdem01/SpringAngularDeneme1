@@ -93,4 +93,9 @@
 			return orderByFilter(list, '-id');
 		};
 	}]);
+	module.directive('itemRow', [function() {
+		return {
+			templateUrl: 'item.html'
+		};
+	}]);
 })();
