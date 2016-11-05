@@ -57,9 +57,9 @@
 	}]);
 	module.factory('MyService', function() {
 		var items = [
-			{id: 1, label: 'Item 0'},
-			{id: 7, label: 'Item 7'},
-			{id: 2, label: 'Item 1'}
+			{id: 1, label: 'Item 0', price: 100, previous: 220},
+			{id: 7, label: 'Item 7', price: 140, previous: 120},
+			{id: 2, label: 'Item 1', price: 110, previous: 110}
 		];
 		return {
 			list: function() {
@@ -96,7 +96,12 @@
 	module.directive('itemRow', [function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'item.html'
+			templateUrl: 'item.html',
+			link: function($scope, $element, $attrs) {
+				$scope.getChangeRate = function(item) {
+					return Math.ceil(100*(item.price-item.previous)/item.previous);
+				};
+			}
 		};
 	}]);
 })();
