@@ -33,7 +33,9 @@ background-color: lightpink;
 	<div>
 		<ul>
 			<li ng-repeat="currentItem in ctrl.list">
-				<item-row item="currentItem" message="item {{$index}}. {{currentItem.label}}" select-action="ctrl.onItemSelect(id)"></item-row>
+				<item-row item="currentItem" message="item {{$index}}. {{currentItem.label}}" select-action="ctrl.onItemSelect(id)">
+					This content will be blown away for id {{currentItem.id}}!
+				</item-row>
 			</li>
 		</ul>
 		

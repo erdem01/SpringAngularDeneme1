@@ -1,5 +1,8 @@
-<span ng-bind="item.id | currency"></span>
-<span ng-bind="item.label | uppercase"></span>
-<span ng-bind="getChangeRate(item) + '%'"></span>
-<span ng-bind="message"></span>
-<button ng-click="onSelect()">Select Me!</button>
+<div>
+	<span ng-transclude></span>
+	<span ng-bind="item.id | currency"></span>
+	<span ng-bind="item.label | uppercase"></span>
+	<span ng-bind="getChangeRate(item) + '%'"></span>
+	<span ng-bind="message"></span>
+	<button ng-click="onSelect()">Select Me!</button>
+</div>

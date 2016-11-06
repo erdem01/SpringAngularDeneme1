@@ -102,6 +102,7 @@
 		return {
 			restrict: 'E',
 			templateUrl: 'item.html',
+			transclude: true,
 			link: function($scope, $element, $attrs) {
 				$scope.getChangeRate = function(item) {
 					return Math.ceil(100*(item.price-item.previous)/item.previous);
