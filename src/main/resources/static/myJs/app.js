@@ -35,6 +35,7 @@
 				id: 3, label: 'Item 3'
 			};
 			MyService.add(newItem);
+			self.list = descIdFilter(MyService.list());
 		};
 		self.user = {};
 		self.userPromise = UserService.gatherUser();
