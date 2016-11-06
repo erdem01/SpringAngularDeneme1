@@ -30,6 +30,10 @@ background-color: lightpink;
 		<input type="submit" value="Submit" ng-disabled="userForm.$invalid || userForm.$pristine" />
 	</form>
 	
+	<div item-row-repeat="ctrl.list">
+		Advanced transclusion example with id "{{item.id}}" and index "{{currentIndex}}"!
+	</div>
+	
 	<div>
 		<ul>
 			<li ng-repeat="currentItem in ctrl.list">

@@ -122,4 +122,24 @@
 			}
 		};
 	}]);
+	module.directive('itemRowRepeat', [function() {
+		return {
+			restrict: 'A',
+			transclude: 'element',
+			link: function($scope, $element, $attrs, ctrl, $transclude) {
+				var arrayToRender = $scope.$eval($attrs.itemRowRepeat);
+				var generatedElement = angular.element("<div></div>");
+				for (var int = 0; int < arrayToRender.length; int++) {
+					var array_element = arrayToRender[int];
+					var newElementToBeAdded = $transclude($scope.$new(),
+						function(clonedElement, newScope) {
+							newScope.currentIndex = int;
+							newScope.item = array_element;
+						});
+					generatedElement.append(newElementToBeAdded);
+				}
+				$element.after(generatedElement);
+			}
+		};
+	}]);
 })();
