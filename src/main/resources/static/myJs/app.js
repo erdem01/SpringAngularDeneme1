@@ -142,4 +142,41 @@
 			}
 		};
 	}]);
+	module.directive('tabs', [function() {
+		return {
+			templateUrl: 'tabs.html',
+			restrict: 'E',
+			transclude: true,
+			scope: {},
+			controller: ['$scope', function($scope) {
+				var tabs = [];
+				$scope.selectTab = function(tab) {
+					angular.forEach(tabs, function(tab) {
+						tab.selected = false;
+				    });
+					tab.selected = true;
+				};
+				this.registerTab = function(tab) {
+					if(tabs.length === 0) {
+						$scope.selectTab(tab);
+					}
+					tabs.push(tab);
+				};
+			}]
+		};
+	}]);
+	module.directive('tab', [function() {
+		return {
+			templateUrl: 'tab.html',
+			restrict: 'E',
+			transclude: true,
+			require: '^^tabs',
+			scope: {
+		      title: '@'
+		    },
+			link: function(scope, element, attrs, tabsCtrl) {
+				tabsCtrl.registerTab(scope);
+			}
+		};
+	}]);
 })();
