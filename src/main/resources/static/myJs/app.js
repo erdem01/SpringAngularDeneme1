@@ -142,43 +142,41 @@
 			}
 		};
 	}]);
-	module.directive('myTabs', function() {
-	    return {
-	        restrict: 'E',
-	        transclude: true,
-	        scope: {},
-	        controller: ['$scope', function MyTabsController($scope) {
-	          var panes = $scope.panes = [];
-
-	          $scope.select = function(pane) {
-	            angular.forEach(panes, function(pane) {
-	              pane.selected = false;
-	            });
-	            pane.selected = true;
-	          };
-
-	          this.addPane = function(pane) {
-	            if (panes.length === 0) {
-	              $scope.select(pane);
-	            }
-	            panes.push(pane);
-	          };
-	        }],
-	        templateUrl: 'my-tabs.html'
-	      };
-	    });
-	module.directive('myPane', function() {
-	    return {
-	        require: '^^myTabs',
-	        restrict: 'E',
-	        transclude: true,
-	        scope: {
-	          title: '@'
-	        },
-	        link: function(scope, element, attrs, tabsCtrl) {
-	          tabsCtrl.addPane(scope);
-	        },
-	        templateUrl: 'my-pane.html'
-	      };
-	    });
+	module.directive('tabs', [function() {
+		return {
+			templateUrl: 'tabs.html',
+			restrict: 'E',
+			transclude: true,
+			scope: {},
+			controller: ['$scope', function($scope) {
+				var tabs = $scope.tabs = [];
+				$scope.selectTab = function(tab) {
+					angular.forEach(tabs, function(tab) {
+						tab.selected = false;
+				    });
+					tab.selected = true;
+				};
+				this.registerTab = function(tab) {
+					if(tabs.length === 0) {
+						$scope.selectTab(tab);
+					}
+					tabs.push(tab);
+				};
+			}]
+		};
+	}]);
+	module.directive('tab', [function() {
+		return {
+			templateUrl: 'tab.html',
+			restrict: 'E',
+			transclude: true,
+			require: '^^tabs',
+			scope: {
+		      title: '@'
+		    },
+			link: function(scope, element, attrs, tabsCtrl) {
+				tabsCtrl.registerTab(scope);
+			}
+		};
+	}]);
 })();
