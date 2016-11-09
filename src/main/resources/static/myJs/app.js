@@ -59,7 +59,7 @@
 		self.onItemSelect = function(id) {
 			console.log('item with id: ', id, '  selected');
 		};
-		
+		self.password="";
 	}]);
 	module.factory('MyService', function() {
 		var items = [
@@ -176,6 +176,26 @@
 		    },
 			link: function(scope, element, attrs, tabsCtrl) {
 				tabsCtrl.registerTab(scope);
+			}
+		};
+	}]);
+	module.directive('passwordValidator', [function() {
+		var passwordRegex = new RegExp("^([a-z]+[0-9]+|[0-9]+[a-z]+)[a-z0-9]*$", "i");
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: function(scope, element, attrs, ngModelCtrl) {
+				//DOM update
+				ngModelCtrl.$parsers.unshift(function(value) {
+					var valid = passwordRegex.test(value);
+					ngModelCtrl.$setValidity('passwordValidator', valid);
+					return valid ? value : undefined; 
+				});
+				//Model update
+				ngModelCtrl.$formatters.unshift(function(value) {
+					ngModelCtrl.$setValidity('passwordValidator', passwordRegex.test(value));
+					return value; 
+				});
 			}
 		};
 	}]);

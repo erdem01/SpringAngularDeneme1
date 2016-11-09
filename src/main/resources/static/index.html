@@ -16,6 +16,9 @@ background-color: red;
 .birthday.ng-invalid-date {
 background-color: lightpink;
 }
+.passwordvalidator.ng-invalid {
+	background: pink;
+}
 </style>
 </head>
 <body ng-controller="NgModelCtrl as ctrl">
@@ -85,6 +88,9 @@ background-color: lightpink;
 			 <p><a href ng-click="i = i + 1">counter: {{i || 0}}</a></p>
 		</tab>
 	</tabs>
-
+	
+	<form novalidate="">
+		<input type="text" class="passwordvalidator" ng-model="ctrl.password" password-validator/>
+	</form>
 </body>
 </html>
