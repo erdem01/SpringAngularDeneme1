@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="lib/jsapi.js"></script>
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular.js"></script>
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular-route.min.js"></script>
 <script type="text/javascript" src="myJs/app.js"></script>
@@ -17,7 +18,7 @@ background-color: red;
 background-color: lightpink;
 }
 .passwordvalidator.ng-invalid {
-	background: pink;
+background: pink;
 }
 </style>
 </head>
@@ -92,5 +93,15 @@ background-color: lightpink;
 	<form novalidate="">
 		<input type="text" class="passwordvalidator" ng-model="ctrl.password" password-validator/>
 	</form>
+	
+	<div>
+		<div>
+			<button ng-click="ctrl.changeData()">
+				Change Pie Chart Data
+			</button>
+		</div>
+		<div pie-chart chart-data="ctrl.pieChartData" chart-config="ctrl.pieChartConfig">
+	</div>
+	
 </body>
 </html>

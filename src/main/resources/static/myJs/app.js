@@ -60,6 +60,20 @@
 			console.log('item with id: ', id, '  selected');
 		};
 		self.password="";
+		var self = this;
+		self.pieChartData = [
+		{label: 'First', value: 25},
+		{label: 'Second', value: 54},
+		{label: 'Third', value: 75}
+		];
+		self.pieChartConfig = {
+		title: 'One Two Three Chart',
+		firstColumnHeader: 'Counter',
+		secondColumnHeader: 'Actual Value'
+		};
+		self.changeData = function() {
+		self.pieChartData[1].value = 25;
+		};
 	}]);
 	module.factory('MyService', function() {
 		var items = [
@@ -195,6 +209,51 @@
 				ngModelCtrl.$formatters.unshift(function(value) {
 					ngModelCtrl.$setValidity('passwordValidator', passwordRegex.test(value));
 					return value; 
+				});
+			}
+		};
+	}]);
+	module.factory('googleChartLoaderPromise', ['$q', '$rootScope', '$window', function($q, $rootScope, $window) {
+		// Create a Deferred Object
+		var deferred = $q.defer();
+		// Load Google Charts API asynchronously
+		$window.google.load('visualization', '1', {
+			packages: ['corechart'],
+			callback: function() {
+				// When loaded, trigger the resolve,
+				// but inside an $apply as the event happens
+				// outside of AngularJS life cycle
+				$rootScope.$apply(function() {
+					deferred.resolve();
+				});
+			}
+		});
+		// Return the promise object for the directive
+		// to chain onto.
+		return deferred.promise;
+	}]);
+	module.directive('pieChart', ['googleChartLoaderPromise', function(googleChartLoaderPromise) {
+		var convertToPieChartDataTableFormat = function(firstColumnName, secondColumnName, data) {
+			var pieChartArray = [[firstColumnName, secondColumnName]];
+			for (var i = 0; i < data.length; i++) {
+				pieChartArray.push([data[i].label, data[i].value]);
+			}
+			return google.visualization.arrayToDataTable(pieChartArray);
+		};
+		return {
+			restrict: 'A',
+			scope: {
+				chartData: '=',
+				chartConfig: '='
+			},
+			link: function($scope, $element) {
+				googleChartLoaderPromise.then(function() {
+				var chart = new google.visualization.PieChart($element[0]);
+				$scope.$watch('chartData', function(newVal, oldVal) {
+					var config = $scope.chartConfig;
+					if (newVal) {
+						chart.draw(convertToPieChartDataTableFormat(config.firstColumnHeader,config.secondColumnHeader,newVal),{title: $scope.chartConfig.title});
+					}}, true);
 				});
 			}
 		};
