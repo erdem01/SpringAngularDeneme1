@@ -258,4 +258,17 @@
 			}
 		};
 	}]);
+	module.factory('AuthInterceptor', [function() {
+		return {
+			'request': function(config) {
+				config.headers = config.headers || {};
+				var encodedStr = btoa('bill:abc123');
+				config.headers.Authorization = 'Basic ' + encodedStr;
+				return config;
+			}
+		};
+	}]);
+	module.config(['$httpProvider', function($httpProvider) {
+		$httpProvider.interceptors.push('AuthInterceptor');
+	}]);
 })();
