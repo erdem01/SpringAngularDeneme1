@@ -21,17 +21,24 @@ public class SpringAngularDeneme1ApplicationConfig extends WebSecurityConfigurer
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		 auth.inMemoryAuthentication().withUser("bill").password("abc123").roles("ADMIN");
-	     auth.inMemoryAuthentication().withUser("tom").password("abc123").roles("USER");
+		auth
+		.ldapAuthentication()
+		.userSearchFilter("uid={0}")
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("member={0}")
+		.contextSource()
+		.url("ldap://localhost:389/dc=erdemc,dc=deneme")
+		.managerDn("cn=admin,dc=erdemc,dc=deneme")
+		.managerPassword("invader84;");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
         .authorizeRequests()
-        .antMatchers("/user/**").hasRole("ADMIN")
+        .antMatchers("/**").authenticated()
         .and().httpBasic().realmName(REALM).authenticationEntryPoint(authEntryPoint())
-        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//
+        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
 	@Override

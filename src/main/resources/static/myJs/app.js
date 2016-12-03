@@ -262,7 +262,7 @@
 		return {
 			'request': function(config) {
 				config.headers = config.headers || {};
-				var encodedStr = btoa('bill:abc123');
+				var encodedStr = btoa('ecaglayan:invader84;');
 				config.headers.Authorization = 'Basic ' + encodedStr;
 				return config;
 			}
