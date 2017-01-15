@@ -1,107 +1,29 @@
 <!DOCTYPE html>
-<html ng-app="NgModelModule">
+<html ng-app="loginModule">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="lib/jsapi.js"></script>
-<script type="text/javascript" src="webjars/angularjs/1.5.8/angular.js"></script>
-<script type="text/javascript" src="webjars/angularjs/1.5.8/angular-route.min.js"></script>
-<script type="text/javascript" src="myJs/app.js"></script>
-<style>
-.name.ng-invalid-minlength {
-background-color: green;
-}
-.surname.ng-invalid-required {
-background-color: red;
-}
-.birthday.ng-invalid-date {
-background-color: lightpink;
-}
-.passwordvalidator.ng-invalid {
-background: pink;
-}
-</style>
+<title>Login Page</title>
+<script type="text/javascript" src="/webjars/angularjs/1.5.8/angular.js"></script>
+<script type="text/javascript" src="/myJs/login.js"></script>
 </head>
-<body ng-controller="NgModelCtrl as ctrl">
-
-	<input type="text" ng-model="ctrl.variable"/>
-	You typed {{ctrl.variable}}
-	
-	<form ng-submit="ctrl.submit()" name="userForm">
-		<input type="text" class="name" ng-model="ctrl.user.name" ng-minlength="3" />
-		<input type="text" class="surname" ng-model="ctrl.user.surname" required/>
-		<input type="date" class="birthday" ng-model="ctrl.user.birthday" />
-		<input type="submit" value="Submit" ng-disabled="userForm.$invalid || userForm.$pristine" />
+<body ng-controller="LoginCtrl as ctrl">
+	{{1+2}}
+	<h3>Login with Username and Password</h3>
+	<form ng-submit="ctrl.login()">
+		<table>
+			<tr>
+				<td>User2:</td>
+				<td><input type='text' ng-model="ctrl.username"></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type='password' ng-model="ctrl.password" /></td>
+			</tr>
+			<tr>
+				<td colspan='2'><input name="submit" type="submit"
+					value="Login" /></td>
+			</tr>
+		</table>
 	</form>
-	
-	<div item-row-repeat="ctrl.list">
-		Advanced transclusion example with id "{{item.id}}" and index "{{currentIndex}}"!
-	</div>
-	
-	<div>
-		<ul>
-			<li ng-repeat="currentItem in ctrl.list">
-				<item-row item="currentItem" message="item {{$index}}. {{currentItem.label}}" select-action="ctrl.onItemSelect(id)">
-					This content will be blown away for id {{currentItem.id}}!
-				</item-row>
-			</li>
-		</ul>
-		
-		<button ng-click="ctrl.addItem()">
-			Add More Items
-		</button>
-	</div>
-	
-	<button ng-click="ctrl.setCurrentTab('tab1')">tab1</button>
-	<button ng-click="ctrl.setCurrentTab('tab2')">tab2</button>
-	<button ng-click="ctrl.setCurrentTab('tab3')">tab3</button>
-	<button ng-click="ctrl.setCurrentTab('invalidTab')">invalidTab</button>
-	
-	<div ng-switch="ctrl.getCurrentTab()">
-		<div ng-switch-when="tab1">
-			tab1 selected
-		</div>
-		<div ng-switch-when="tab2">
-			tab2 selected
-		</div>
-		<div ng-switch-when="tab3">
-			tab3 selected
-		</div>
-		<div ng-switch-default>
-			unknown
-		</div>
-	</div>
-	
-	<ul>
-		<li><a href="#/">Default Route</a></li>
-		<li><a href="#/second">Second Route</a></li>
-		<li><a href="#/asdasdasd">Nonexistent Route</a></li>
-	</ul>
-	
-	<div ng-view></div>
-
-	<tabs>
-		<tab title="First Tab">
-			 <p>Lorem ipsum dolor sit amet</p>
-		</tab>
-		<tab title="Second Tab">
-			 <em>Mauris elementum elementum enim at suscipit.</em>
-			 <p><a href ng-click="i = i + 1">counter: {{i || 0}}</a></p>
-		</tab>
-	</tabs>
-	
-	<form novalidate="">
-		<input type="text" class="passwordvalidator" ng-model="ctrl.password" password-validator/>
-	</form>
-	
-	<div>
-		<div>
-			<button ng-click="ctrl.changeData()">
-				Change Pie Chart Data
-			</button>
-		</div>
-		<div pie-chart chart-data="ctrl.pieChartData" chart-config="ctrl.pieChartConfig">
-	</div>
-	
 </body>
 </html>
